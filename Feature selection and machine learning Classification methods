@@ -66,8 +66,7 @@ finalvars = getSelectedAttributes(boruta, withTentative = F)
 finalvars
 write.csv(xx, "finalvars_boruta_30.csv")
 
-# The bar plot to show rank of selected genes using machine learning methods  
-
+# load ML selected features with their rank of gene immportance in asthma prediction and plot using bar plot.
 ggbarplot(dt, x = "ID", y = "Rank",
           fill = "Method",           
           color = "white",            
@@ -85,7 +84,6 @@ ggbarplot(dt, x = "ID", y = "Rank",
           
           ggtheme = theme_minimal()
 )
-
 
 # machine learning analysis based RF and SVM classifier comparison 
 # load selected Genes for asthma classification model using ML methods.
