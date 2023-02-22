@@ -1,5 +1,4 @@
 #Load required packages
-
 library(ggplot2)
 library(caret)
 library(caret) 
@@ -20,7 +19,6 @@ plot(cv.fit)
 fit <- glmnet(x,y, family = "binomial", alpha = 1)
 plot(fit)
 cv.fit$lambda.min
-
 Coefficients <- coef(fit, s = fit$lambda.min)
 Active.Index <- which(Coefficients != 0)
 Active.Coefficients <- Coefficients[Active.Index]
@@ -31,7 +29,6 @@ coef(cv.fit, s = "lambda.min")
 # Define the control using a random forest selection function
 control <- rfeControl(functions = rfFuncs, # random forest
                       number = 10) # number of folds
-
 # run the RFE algorithm
 results <- rfe(dat[,2:3565], dat[,1], sizes=c(1:3565), rfeControl=control) # column 1 target var
 # summarize the results
@@ -40,7 +37,6 @@ print(results)
 predictors(results)
 # plot the results
 plot(results, type=c("g", "o"))
-
 
 varimp_RFE <- data.frame(feature = row.names(varImp(results))[1:726],importance = varImp(results)[1:726, 1])
 
