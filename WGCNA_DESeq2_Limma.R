@@ -15,7 +15,7 @@ library(ggrepel)
 library(patchwork)
 library(BIGverse)
 
-### Load raw OPAR count matrix
+### Load raw count matrix and variace-stablizing normalization before conducting WGCNA analysis 
 raw_counts <- read.csv("combined_count_matrix_1_modified.csv", header=T, row.names=1)
 head(raw_counts)
 design<-read.csv("DesignMatrix.csv", row.names = 1)
