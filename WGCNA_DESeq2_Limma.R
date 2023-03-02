@@ -1,4 +1,4 @@
-#Set working directory to folder containing counts and design data
+# Set working directory to folder containing counts and design data
 setwd("C:/Users/desqz2/Desktop/ARPM")
 #Load required packages
 library(DESeq2)
@@ -196,20 +196,20 @@ labeledHeatmap(Matrix = moduleTraitCor,
 
 # Gene Significance and Module Membership
 
-# Define variable Lesional containing from input-dat
-Lesional = as.data.frame(bac_traits$Lesional);
-names(Lesional) = "Lesional"
+# Define variable Type containing from input-dat
+Asthmatic = as.data.frame(bac_traits$Asthmatic);
+names(Asthmatic) = "Asthmatic"
 # names (colors) of the modules
 modNames = substring(names(MEs), 3)
 modNames
-Lesional
+Asthmatic
 geneModuleMembership = as.data.frame(cor(input_mat, MEs, use = "p"));
 MMPvalue = as.data.frame(corPvalueStudent(as.matrix(geneModuleMembership), nSamples));
 names(geneModuleMembership) = paste("MM", modNames, sep="");
 names(MMPvalue) = paste("p.MM", modNames, sep="");
-geneTraitSignificance = as.data.frame(cor(input_mat, Lesional, use = "p"));
+geneTraitSignificance = as.data.frame(cor(input_mat, Asthmatic, use = "p"));
 GSPvalue = as.data.frame(corPvalueStudent(as.matrix(geneTraitSignificance), nSamples));
-names(geneTraitSignificance) = paste("GS.", names(Lesional), sep="");
+names(geneTraitSignificance) = paste("GS.", names(Asthmatic), sep="");
 names(GSPvalue) = paste("p.GS.", names(Lesional), sep="");
 
 MEs$MEblue
@@ -229,13 +229,11 @@ verboseScatterplot(abs(geneModuleMembership[moduleGenes, column]),
                    main = paste("Module membership vs. gene significance\n"),
                    cex.main = 0.9, cex.lab = 1, cex.axis = 1, col = module) 
 
-
-
 # For count data, we used DESeq2 package for DEGs analysis
 # DEGs analysis
 dat<-read.csv("Count_GEOData_data_matrix.csv", row.names = 1)
 dt<-read.csv("designmatrix.csv", row.names = 1)
-#Create a Datasheet from count matrix and labels
+# Create a Datasheet from count matrix and labels
 dds <- DESeqDataSetFromMatrix(dat ,dt , design = ~Type)
 dim(dds)
 dds$Type <- relevel(dds$Type, ref = "C") # C->set reference control subjects
@@ -246,9 +244,7 @@ class(res)
 write.csv(res, "DEGs_GSE157194__all.csv")
 
 # Limma package was used for DEG analysis for normalized GEO dataset 
-
 dat<-read.csv("Normalized_data_matrix.csv", row.names = 1)
-
 design.mat<-read.csv("design matrix.csv")
 design.mat<-design.mat[,-1]
 design.mat
@@ -271,7 +267,7 @@ DEG1 <- as.data.frame(deg1)
 View(DEG1)
 write.csv(DEG1, "DEGs_based on_limma.csv")
 
-# batch effect adjustment based on Surrogate Variable Analysis (SVA)
+# Batch effect adjustment based on Surrogate Variable Analysis (SVA)
 datx<-read.csv("data with batch_effect.csv", row.names = 1)
 b<-read.csv("Design_matrix.csv")
 b$batch<-as.factor(b$batch)
