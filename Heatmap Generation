@@ -2,7 +2,7 @@
 # Creat dataframe containing List of  gene signtures and the corressping fold changes in multiple tissue/cell type datasets 
 
 ####################
-#Perform after ML and WGCNA and DEG have been performed
+# Perform after ML and WGCNA and DEG have been performed
 # load the packages
 library(pheatmap)
 library(gplots)
